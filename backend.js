@@ -45,42 +45,48 @@ function playGame(player){
         }
     }
 }
-var firstGame = document.createElement('div');
-var secondGame = document.createElement('div');
-var thirdGame = document.createElement('div');
-var fourthGame = document.createElement('div');
-var fifthGame = document.createElement('div');
+var gameDiv = document.createElement('div');
+var displayDiv = document.createElement('div');
+var scoreCounter = document.createElement('div');
+var winnerDiv = document.createElement('div');
+var computerScore = 0, playerScore = 0;
 
-var firstDisplay = document.createElement('div');
-var secondDisplay = document.createElement('div');
-var thirdDisplay= document.createElement('div');
-var fourthDisplay = document.createElement('div');
-var fifthDisplay = document.createElement('div');
-
-const games =[firstGame, secondGame, thirdGame, fourthGame, fifthGame];
-const displays = [firstDisplay, secondDisplay, thirdDisplay, fourthDisplay, fifthDisplay];
 
 const container = document.querySelector('#result')
-
 const rock = document.querySelector('#rock');
 const scissors = document.querySelector('#scissors');
 const paper = document.querySelector('#paper');
 
-rock.addEventListener("click", () => result(games[0], displays[0], "rock"));
-scissors.addEventListener("click", () => result(games[0], displays[0], "scissors"));
-paper.addEventListener("click", () => result(games[0], displays[0], "paper"));
+
+rock.addEventListener("click", () => result("rock"));
+scissors.addEventListener("click", () => result("scissors"));
+paper.addEventListener("click", () => result("paper"));
 
 
-
-
-
-function result(matchDiv, displayDiv, choice){
+function result(choice){
     game = playGame(choice)
     
+    if(game == "COMPUTER WINS") computerScore++;
+    else if(game == "PLAYER WINS") playerScore ++;
+
     displayDiv.textContent = display();
     container.appendChild(displayDiv);
 
-    matchDiv.textContent = game;
-    container.appendChild(matchDiv);
+    gameDiv.textContent = game;
+    container.appendChild(gameDiv);
+
+    scoreCounter.textContent = "Computer: " + computerScore + " | Player: " + playerScore;
+    container.appendChild(scoreCounter);
+
+    if(computerScore == 5){
+        winnerDiv.textContent = "\nCOMPUTER IS FIRST TO 5. COMPUTER WINS!"; 
+        container.appendChild(winnerDiv);
+    }
+    else if(playerScore == 5){
+        winnerDiv.textContent = "\nPLAYER IS FIRST TO 5. PLAYER WINS!";
+        container.appendChild(winnerDiv);
+    }
 }
+
+
 
