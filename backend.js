@@ -4,53 +4,83 @@ var playerChoice;
 function getComputerChoice(){
     const choices = ["rock", "paper", "scissors"];
     let index = Math.floor((Math.random() * 3));
-    return choices[index];
+    return(choices[index]);
 }
 
 function display(){
-    console.log("Player chose "+ playerChoice + ". Computer chose " + computerChoice)
+    return("Player chose "+ playerChoice + ". Computer chose " + computerChoice)
 }
 
-function playGame(){
+function playGame(player){
     computerChoice = getComputerChoice();
-    playerChoice = prompt("Rock, Paper, or Scissors?");
-    playerChoice = playerChoice.toLowerCase();
+    playerChoice = player.toLowerCase();
 
     display();
 
     if(playerChoice == computerChoice){
-        return (". \n DRAW" );
+        return(("DRAW" ));
     }
     else if(playerChoice == "rock"){
         if(computerChoice == "paper"){
-            return (". \n COMPUTER WINS");
+            return(("COMPUTER WINS"));
         }
         else if(computerChoice == "scissors"){
-            return (". \n PLAYER WINS");
+            return(("PLAYER WINS"));
         }
     }
     else if(playerChoice == "scissors"){
         if(computerChoice == "paper"){
-            return (". \n PLAYER WINS");
+            return(("PLAYER WINS"));
         }
         else if(computerChoice == "rock"){
-            return (". \n COMPUTER WINS");
+            return(("COMPUTER WINS"));
         }
     }
     else if(playerChoice == "paper"){
         if(computerChoice == "rock"){
-            return (". \n PLAYER WINS");
+            return(("PLAYER WINS"));
         }
         else if(computerChoice == "scissors"){
-            return (". \n COMPUTER WINS")
+            return(("COMPUTER WINS"))
         }
     }
-    else{
-        return ("PLAYER INVALID INPUT");
-    }   
+}
+var firstGame = document.createElement('div');
+var secondGame = document.createElement('div');
+var thirdGame = document.createElement('div');
+var fourthGame = document.createElement('div');
+var fifthGame = document.createElement('div');
+
+var firstDisplay = document.createElement('div');
+var secondDisplay = document.createElement('div');
+var thirdDisplay= document.createElement('div');
+var fourthDisplay = document.createElement('div');
+var fifthDisplay = document.createElement('div');
+
+const games =[firstGame, secondGame, thirdGame, fourthGame, fifthGame];
+const displays = [firstDisplay, secondDisplay, thirdDisplay, fourthDisplay, fifthDisplay];
+
+const container = document.querySelector('#result')
+
+const rock = document.querySelector('#rock');
+const scissors = document.querySelector('#scissors');
+const paper = document.querySelector('#paper');
+
+rock.addEventListener("click", () => result(games[0], displays[0], "rock"));
+scissors.addEventListener("click", () => result(games[0], displays[0], "scissors"));
+paper.addEventListener("click", () => result(games[0], displays[0], "paper"));
+
+
+
+
+
+function result(matchDiv, displayDiv, choice){
+    game = playGame(choice)
+    
+    displayDiv.textContent = display();
+    container.appendChild(displayDiv);
+
+    matchDiv.textContent = game;
+    container.appendChild(matchDiv);
 }
 
-const choices = document.querySelectorAll(`button[class = "choice"]`);
-choices.forEach(returnValue);
-
-function returnValue() 
